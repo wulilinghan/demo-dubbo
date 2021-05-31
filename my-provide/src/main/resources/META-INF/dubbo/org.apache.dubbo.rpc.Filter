@@ -1,0 +1,2 @@
+paramReceiveFilter=top.b0x0.mydubbo.myprovide.filter.DownStreamFilter
+paramPassFilter=top.b0x0.mudubbo.myconsumer.filter.UpStreamFilter

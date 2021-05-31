@@ -1,0 +1,25 @@
+service:
+  version: 1.0.0
+server:
+  port: 9001
+spring:
+  application:
+    name: my-web
+dubbo:
+  application:
+    name: service-web
+    qos-enable: false
+    qos-accept-foreign-ip: false
+  registry:
+    address: nacos://127.0.0.1:8848
+#    username: nacos
+#    password: nacos
+  consumer:
+    check: false
+    timeout: 30000
+    filter: paramPassFilter
+#  protocol:
+#    id: b0fa1d86-edaa-45ef-a011-a5a753b1e420
+#    name: dubbo
+
+

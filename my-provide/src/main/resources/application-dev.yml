@@ -1,0 +1,66 @@
+service:
+  version: 1.0.0
+server:
+  port: 9000
+
+spring:
+  application:
+    name: service-provide
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/sdnd?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root@123
+  #    type: com.zaxxer.hikari.util.DriverDataSource
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    #    password: redis
+    timeout: 5000
+    jedis:
+      pool:
+        max-idle: 500
+        min-idle: 50
+        max-active: 1000
+        max-wait: 2000
+
+dubbo:
+  application:
+    id: ed6708ae-2007-429b-ae5d-a6d1497b7548
+    name: service-provide
+    qos-enable: false
+    qos-accept-foreign-ip: false
+  registry:
+    address: nacos://127.0.0.1:8848
+    username: nacos
+    password: nacos
+  scan:
+    basePackages: top.b0x0.mydubbo.myprovide.service
+  provider:
+    timeout: 30000  #方法调用的超时时间
+    token: true  # 防止消费者绕过注册中心访问提供者, 随机token令牌，使用UUID生成
+    retries: 3      # 失败重试次数，缺省是 2
+    loadbalance: roundrobin   # 负载均衡算法 , 缺省是随机 random。还可以配置轮询 roundrobin、最不活跃优先 4 leastactive 和一致性哈希 consistenthash 等
+    filter: paramReceiveFilter
+  protocol:
+    id: 2364cec8-768f-4fa0-a854-6c7fec490a6c
+    name: dubbo
+    port: 20031 # 随机端口
+  consumer:
+    check: false
+
+mybatis-plus:
+  #多个package用逗号或者分号分隔
+  #  typeAliasesPackage: top.b0x0.admin.common.pojo
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true  # 是否开启自动驼峰命名规则（camel case）映射
+    local-cache-scope: statement   #  STATEMENT 关闭一级缓存
+    call-setters-on-nulls: true
+    cache-enabled: false
+  global-config:
+    banner: false
+    db-config:
+      logic-delete-value: 0
+      logic-not-delete-value: 1
