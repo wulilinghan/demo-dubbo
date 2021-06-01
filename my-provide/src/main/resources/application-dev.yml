@@ -11,7 +11,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: root@123
-  #    type: com.zaxxer.hikari.util.DriverDataSource
+    type: com.zaxxer.hikari.util.DriverDataSource
   redis:
     host: 127.0.0.1
     port: 6379
